@@ -1,53 +1,53 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 let mode = "development";
 
 if (process.env.NODE_ENV === "production") {
-    mode = production;
+  mode = production;
 }
 
 module.exports = {
-    mode: mode,
-    devServer: {
-        contentBase: "./dist",
-        hot: true,
-    },
-    devtool: "source-map",
-    module:{
-        rules:[
-            {
-                test: /\.less$/i,
-                use: [
-                    {
-                    loader: "style-loader",
-                    },
-                    {
-                    loader: "css-loader",
-                    },
-                    {
-                    loader: "less-loader",
-                    options: {
-                        lessOptions: {
-                        strictMath: true,
-                        },
-                    },
-                    },
-                ],
+  mode: mode,
+  devServer: {
+    contentBase: "./dist",
+    hot: true,
+  },
+  devtool: "source-map",
+  module: {
+    rules: [
+      {
+        test: /\.less$/i,
+        use: [
+          {
+            loader: "style-loader",
+          },
+          {
+            loader: "css-loader",
+          },
+          {
+            loader: "less-loader",
+            options: {
+              lessOptions: {
+                strictMath: true,
+              },
             },
+          },
+        ],
+      },
 
-            {
-                test:/.s?css$/i,
-                use: [MiniCssExtractPlugin.loader, "css-loader","sass-loader"],
-            },
-            
-            {
-                test:/.js$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader",
-                }
-            }
-        ]
-    },
-    plugins:[new MiniCssExtractPlugin()],
+      {
+        test: /.s?css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+      },
+      {
+        test: /.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+        },
+      },
+    ],
+  },
+  plugins: [new HtmlWebpackPlugin(), new MiniCssExtractPlugin()],
 };
